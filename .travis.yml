@@ -1,29 +1,23 @@
 language: python
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
   - "3.4"
   - "3.5"
+  - "3.6"
 env:
-  - DJANGO_VERSION=1.8.14
-  - DJANGO_VERSION=1.9.9
-  - DJANGO_VERSION=1.10.1
+  # Django: LTS and current feature version
+  - DJANGO_VERSION=1.8.18
+  - DJANGO_VERSION=1.11.8
 matrix:
   exclude:
-    - python: "3.2"
-      env: DJANGO_VERSION=1.9.9
-    - python: "3.2"
-      env: DJANGO_VERSION=1.10.1
-    - python: "3.3"
-      env: DJANGO_VERSION=1.9.9
-    - python: "3.3"
-      env: DJANGO_VERSION=1.10.1
+    # Django 2.0 drops Python 2 support
+    - python: "2.7"
+      env: DJANGO_VERSION=2.0
   fast_finish: true
 
 install:
-  - pip install Django==$DJANGO_VERSION djangorestframework==3.4.6
-  - pip install coverage==3.7.1
+  - pip install Django==$DJANGO_VERSION djangorestframework==3.7.3
+  - pip install coverage==4.4.2
   - pip install coveralls
 script:
   coverage run runtests.py
