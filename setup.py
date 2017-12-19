@@ -1,13 +1,13 @@
-"""Setup file for rest_framework_sav."""
+"""Setup file for drf-expiring-tokens."""
 import os
 import sys
 
 from setuptools import setup, find_packages
 
-import rest_framework_expiring_authtoken
+import drf_expiring_tokens
 
 
-version = rest_framework_expiring_authtoken.__version__
+version = drf_expiring_tokens.__version__
 
 if sys.argv[-1] == 'publish':
     if os.system("pip list | grep wheel"):
@@ -24,14 +24,14 @@ if sys.argv[-1] == 'publish':
     sys.exit()
 
 setup(
-    name='djangorestframework-expiring-authtoken',
+    name='drf-expiring-tokens',
     version=version,
     description='Expiring Authentication Tokens for Django REST Framework',
     url=(
-        'https://github.com/JamesRitchie/django-rest-framework-expiring-tokens'
+        'https://github.com/skrulcik/drf-expiring-tokens'
     ),
-    author='James Ritchie',
-    author_email='james.a.ritchie@gmail.com',
+    author='Scott Krulcik',
+    author_email='skrulcik@gmail.com',
     license='BSD',
     packages=find_packages(exclude=['tests*']),
     install_requires=[
@@ -39,7 +39,7 @@ setup(
     ],
     test_suite='runtests.run',
     tests_require=[
-        'Django>=2.0,<2.1'
+        'Django>=1.11.8,<2.1'
     ],
     zip_safe=False,
     classifiers=[
@@ -50,12 +50,11 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Internet :: WWW/HTTP',
     ]
 )

@@ -8,6 +8,7 @@ env:
   # Django: LTS and current feature version
   - DJANGO_VERSION=1.8.18
   - DJANGO_VERSION=1.11.8
+  - DJANGO_VERSION=2.0
 matrix:
   exclude:
     # Django 2.0 drops Python 2 support

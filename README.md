@@ -1,10 +1,8 @@
 # Expiring Tokens for Django Rest Framework
 
-[![Build Status](https://travis-ci.org/JamesRitchie/django-rest-framework-expiring-tokens.svg?branch=master)](https://travis-ci.org/JamesRitchie/django-rest-framework-expiring-tokens)
-[![Coverage Status](https://coveralls.io/repos/JamesRitchie/django-rest-framework-expiring-tokens/badge.svg)](https://coveralls.io/r/JamesRitchie/django-rest-framework-expiring-tokens)
-[![Code Health](https://landscape.io/github/JamesRitchie/django-rest-framework-expiring-tokens/master/landscape.svg?style=flat)](https://landscape.io/github/JamesRitchie/django-rest-framework-expiring-tokens/master)
-[![PyPI version](https://badge.fury.io/py/djangorestframework-expiring-authtoken.svg)](http://badge.fury.io/py/djangorestframework-expiring-authtoken)
-[![Requirements Status](https://requires.io/github/JamesRitchie/django-rest-framework-expiring-tokens/requirements.svg?branch=master)](https://requires.io/github/JamesRitchie/django-rest-framework-expiring-tokens/requirements/?branch=master)
+[![Build Status](https://travis-ci.org/skrulcik/drf-expiring-tokens.svg?branch=master)](https://travis-ci.org/skrulcik/drf-expiring-tokens)
+[![Coverage Status](https://coveralls.io/repos/github/skrulcik/drf-expiring-tokens/badge.svg?branch=master)](https://coveralls.io/github/skrulcik/drf-expiring-tokens?branch=master)
+[![Requirements Status](https://requires.io/github/skrulcik/drf-expiring-tokens/requirements.svg?branch=master)](https://requires.io/github/skrulcik/drf-expiring-tokens/requirements/?branch=master)
 
 This package provides a lightweight extension to the included token
 authentication in
@@ -17,14 +15,15 @@ If you require more complex token functionality, you're probably better off
 looking at one of the OAuth2 implementations available for Django Rest
 Framework.
 
-This package was inspired by this
-[Stack Overflow answer](http://stackoverflow.com/a/15380732).
+This package was forked from the unmaintained
+[django-rest-framework-expiring-tokens](https://github.com/JamesRitchie/django-rest-framework-expiring-tokens)
+, which was inspired by this [Stack Overflow
+answer](http://stackoverflow.com/a/15380732).
 
 ## Installation
 
-Expiring Tokens is tested against the latest versions of Django 1.6, 1.7 and
-the 1.8 preview release, and Django Rest Framework 3.1.1.
-It should in theory support Django 1.4.
+Expiring Tokens is tested against the latest versions of Django 1.8 LTS, 1.11
+LTS and the 2.0 release, and Django Rest Framework 3.7.3.
 
 Grab the package from PyPI.
 
@@ -44,7 +43,7 @@ INSTALLED_APPS = [
     ...
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_expiring_authtoken',
+    'drf_expiring_tokens',
     ...
 ]
 ```
@@ -59,13 +58,13 @@ import datetime
 EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(days=25)
 ```
 
-[Set the authentication scheme](http://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme) to `rest_framework_expiring_authtoken.authentication.ExpiringTokenAuthentication`
+[Set the authentication scheme](http://www.django-rest-framework.org/api-guide/authentication/#setting-the-authentication-scheme) to `drf_expiring_tokens.authentication.ExpiringTokenAuthentication`
 on a default or per-view basis.
 
 If you used the `obtain_auth_token` view, you'll need to replace it with the  `obtain_expiring_auth_token` view in your URLconf.
 
 ```python
-from rest_framework_expiring_authtoken import views
+from drf_expiring_tokens import views
 urlpatterns += [
     url(r'^api-token-auth/', views.obtain_expiring_auth_token)
 ]
@@ -95,9 +94,12 @@ The `obtain_expiring_auth_token` view works exactly the same as the `obtain_auth
 
  * [James Ritchie](https://github.com/JamesRitchie)
  * [fcasas](https://github.com/fcasas)
+ * [Scott Krulcik](https://github.com/skrulcik)
 
 ## Changelog
 
+ * 0.2.0
+  * **Fork** from the unmaintained django-rest-framework-expiring-tokens
  * 0.1.4
   * Fixed a typo causing an incorrect 500 error response with an invalid token.
   * Support Django 1.10 and Django Rest Framework 3.4

@@ -8,7 +8,7 @@ from django.utils import timezone
 
 from rest_framework.authtoken.models import Token
 
-from rest_framework_expiring_authtoken.settings import token_settings
+from drf_expiring_tokens.settings import token_settings
 
 
 class ExpiringToken(Token):

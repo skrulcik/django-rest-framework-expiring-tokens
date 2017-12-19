@@ -7,7 +7,7 @@ Classes:
 from rest_framework import exceptions
 from rest_framework.authentication import TokenAuthentication
 
-from rest_framework_expiring_authtoken.models import ExpiringToken
+from drf_expiring_tokens.models import ExpiringToken
 
 
 class ExpiringTokenAuthentication(TokenAuthentication):

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from rest_framework_expiring_authtoken.models import ExpiringToken
+from drf_expiring_tokens.models import ExpiringToken
 
 
 class ObtainExpiringTokenViewTestCase(APITestCase):

@@ -9,7 +9,7 @@ from time import sleep
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from rest_framework_expiring_authtoken.models import ExpiringToken
+from drf_expiring_tokens.models import ExpiringToken
 
 
 class ExpiringTokenTestCase(TestCase):
