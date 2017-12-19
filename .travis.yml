@@ -20,7 +20,10 @@ install:
   - pip install Django==$DJANGO_VERSION djangorestframework==3.7.3
   - pip install coverage==4.4.2
   - pip install coveralls
+  - pip install pycodestyle
 script:
-  coverage run runtests.py
+  - coverage run runtests.py
+  - pycodestyle --show-source drf_expiring_tokens --exclude='**/migrations/**'
+  - pycodestyle --show-source tests --exclude='**/migrations/**'
 after_success:
-  coveralls
+  - coveralls
