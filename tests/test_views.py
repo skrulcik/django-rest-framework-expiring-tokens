@@ -64,8 +64,7 @@ class ObtainExpiringTokenViewTestCase(APITestCase):
         response = self.client.post('/obtain-token/')
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data,
-            {
+        self.assertEqual(response.data, {
                 'username': ['This field is required.'],
                 'password': ['This field is required.']
             }
@@ -82,8 +81,7 @@ class ObtainExpiringTokenViewTestCase(APITestCase):
         )
 
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data,
-            {
+        self.assertEqual(response.data, {
                 'non_field_errors': [
                     'Unable to log in with provided credentials.'
                 ]

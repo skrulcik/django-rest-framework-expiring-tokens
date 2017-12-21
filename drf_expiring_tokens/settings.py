@@ -26,4 +26,5 @@ class TokenSettings(object):
 
         return val
 
+
 token_settings = TokenSettings()
