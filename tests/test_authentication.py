@@ -5,9 +5,7 @@ from time import sleep
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from drf_expiring_tokens.authentication import (
-    ExpiringTokenAuthentication
-)
+from drf_expiring_tokens.authentication import ExpiringTokenAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from drf_expiring_tokens.models import ExpiringToken
 
