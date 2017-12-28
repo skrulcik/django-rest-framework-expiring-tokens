@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 
 from drf_expiring_tokens.models import ExpiringToken
+from drf_expiring_tokens.settings import token_settings
 
 
 class ObtainExpiringAuthToken(ObtainAuthToken):
@@ -26,7 +27,7 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
                 user=serializer.validated_data['user']
             )
 
-            if token.expired():
+            if token.expired() or token_settings.ALWAYS_RESET_TOKEN:
                 # If the token is expired, generate a new one.
                 token.delete()
                 token = ExpiringToken.objects.create(

@@ -26,5 +26,19 @@ class TokenSettings(object):
 
         return val
 
+    @property
+    def ALWAYS_RESET_TOKEN(self):
+        """
+        Return if token should be reset every time at login
+
+        Defaults to False
+        """
+        try:
+            val = settings.ALWAYS_RESET_TOKEN
+        except AttributeError:
+            val = False
+
+        return val
+
 
 token_settings = TokenSettings()

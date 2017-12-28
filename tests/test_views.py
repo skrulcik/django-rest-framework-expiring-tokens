@@ -5,8 +5,10 @@ from time import sleep
 from django.contrib.auth.models import User
 
 from rest_framework import status
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.test import APITestCase
 
+from drf_expiring_tokens.authentication import ExpiringTokenAuthentication
 from drf_expiring_tokens.models import ExpiringToken
 
 
@@ -149,3 +151,55 @@ class ObtainExpiringTokenViewTestCase(APITestCase):
 
         # Check that the old token was removed, leaving only the new one
         self.assertEqual(len(ExpiringToken.objects.filter(key=key_1)), 0)
+
+    def test_post_always_reset_token(self):
+        """
+        Check that expired tokens are replaced, and that the old tokens are
+        invalidated.
+        """
+
+        token0 = ExpiringToken.objects.create(user=self.user)
+        test_auth = ExpiringTokenAuthentication()
+
+        with self.settings(ALWAYS_RESET_TOKEN=True):
+            # Obtain a token, which should invalidate the hard-coded token0
+            response1 = self._obtain_token()
+            self.assertEqual(response1.status_code, status.HTTP_200_OK)
+            token1_key = response1.data['token']
+            # Check that the hard-coded token key no longer works
+            self.assertNotEqual(token1_key, token0.key)
+            with self.assertRaises(AuthenticationFailed, msg='Invalid token'):
+                test_auth.authenticate_credentials(token0.key)
+            # Check that a valid token was generated
+            self.assertTrue(test_auth.authenticate_credentials(token1_key))
+            # Ensure the model state is where we expect: the old token is gone,
+            # the new one is the only one for the user
+            self.assertEqual(
+                len(ExpiringToken.objects.filter(key=token0.key)), 0)
+            self.assertEqual(
+                len(ExpiringToken.objects.filter(key=token1_key)), 1)
+            self.assertEqual(
+                len(ExpiringToken.objects.filter(user=self.user)), 1)
+            token1 = ExpiringToken.objects.filter(key=token1_key).first()
+            self.assertTrue(token1.key, token1_key)
+
+            # Obtain a new token. Should generate a new token, and invalidate
+            # the old one.
+            response2 = self._obtain_token()
+            token2_key = response2.data['token']
+            # Check that the original generated token key no longer works
+            self.assertNotEqual(token2_key, token1.key)
+            with self.assertRaises(AuthenticationFailed, msg='Invalid token'):
+                test_auth.authenticate_credentials(token1.key)
+            # Check that a valid token was generated
+            self.assertTrue(test_auth.authenticate_credentials(token2_key))
+            # Ensure the model state is where we expect: the old token is gone,
+            # the new one is the only one for the user
+            self.assertEqual(
+                len(ExpiringToken.objects.filter(key=token1.key)), 0)
+            self.assertEqual(
+                len(ExpiringToken.objects.filter(key=token2_key)), 1)
+            self.assertEqual(
+                len(ExpiringToken.objects.filter(user=self.user)), 1)
+            token2 = ExpiringToken.objects.filter(key=token2_key).first()
+            self.assertTrue(token2.key, token2_key)
