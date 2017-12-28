@@ -31,12 +31,12 @@ class TokenSettings(object):
         """
         Return if token should be reset every time at login
 
-        Defaults to False
+        Defaults to True
         """
         try:
             val = settings.ALWAYS_RESET_TOKEN
         except AttributeError:
-            val = False
+            val = True
 
         return val
 
