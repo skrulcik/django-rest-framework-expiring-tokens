@@ -5,15 +5,17 @@
 [![Requirements Status](https://requires.io/github/skrulcik/drf-expiring-tokens/requirements.svg?branch=master)](https://requires.io/github/skrulcik/drf-expiring-tokens/requirements/?branch=master)
 
 This package provides a lightweight extension to the included token
-authentication in
-[Django Rest Framework](http://www.django-rest-framework.org/), causing tokens
-to expire after a specified duration.
+authentication in [Django Rest
+Framework](http://www.django-rest-framework.org/), causing tokens to expire
+after a specified duration.
 
 This behaviour is good practice when using token authentication for production
 APIs.
+
 If you require more complex token functionality, you're probably better off
 looking at one of the OAuth2 implementations available for Django Rest
-Framework.
+Framework, or
+[django-rest-framework-jwt](http://getblimp.github.io/django-rest-framework-jwt/).
 
 This package was forked from the unmaintained
 [django-rest-framework-expiring-tokens](https://github.com/JamesRitchie/django-rest-framework-expiring-tokens)
@@ -28,7 +30,7 @@ the 2.0 release, and Django Rest Framework 3.7.7.
 Grab the package from PyPI.
 
 ```zsh
-pip install djangorestframework-expiring-authtoken
+pip install drf-expiring-tokens
 ```
 
 As this package uses a proxy model on the original Token model, the first step
@@ -36,7 +38,8 @@ is to setup the default
 [TokenAuthentication](http://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
 scheme, and check that it works.
 
-Then, add the package to `INSTALLED_APPS` along with `rest_framework.authtoken` in `settings.py`.
+Then, add the package to `INSTALLED_APPS` along with `rest_framework.authtoken`
+in `settings.py`.
 
 ```python
 INSTALLED_APPS = [
@@ -49,9 +52,9 @@ INSTALLED_APPS = [
 ```
 
 Specify the desired lifespan of a token with `EXPIRING_TOKEN_LIFESPAN` in
-`settings.py` using a
-[timedelta object](https://docs.python.org/2/library/datetime.html#timedelta-objects).
-If not set, the default is 30 days.
+`settings.py` using a [timedelta
+object](https://docs.python.org/2/library/datetime.html#timedelta-objects).  If
+not set, the default is 30 days.
 
 By default, tokens will be reset every time a new login occurs. By setting
 `ALWAYS_RESET_TOKEN` to `False`, this behavior can be deactivated.
@@ -104,6 +107,10 @@ The `obtain_expiring_auth_token` view works exactly the same as the `obtain_auth
 
  * 0.2.0
   * **Fork** from the unmaintained django-rest-framework-expiring-tokens
+  * Automatically reset tokens (and make it the default) - Thanks
+      [tpb-dev](https://github.com/tpb-dev)
+  * Allow custom token models - Thanks
+      [BrunoVillanova](https://github.com/BrunoVillanova)
  * 0.1.4
   * Fixed a typo causing an incorrect 500 error response with an invalid token.
   * Support Django 1.10 and Django Rest Framework 3.4
