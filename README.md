@@ -23,7 +23,7 @@ answer](http://stackoverflow.com/a/15380732).
 ## Installation
 
 Expiring Tokens is tested against the latest versions of Django 1.8 LTS, 1.11
-LTS and the 2.0 release, and Django Rest Framework 3.7.3.
+LTS and the 2.0 release, and Django Rest Framework 3.7.7.
 
 Grab the package from PyPI.
 

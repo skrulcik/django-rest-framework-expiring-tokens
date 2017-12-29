@@ -17,7 +17,7 @@ matrix:
   fast_finish: true
 
 install:
-  - pip install Django==$DJANGO_VERSION djangorestframework==3.7.3
+  - pip install Django==$DJANGO_VERSION djangorestframework==3.7.7
   - pip install coverage==4.4.2
   - pip install coveralls
   - pip install pycodestyle
