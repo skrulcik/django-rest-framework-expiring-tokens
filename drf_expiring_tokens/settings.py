@@ -17,12 +17,12 @@ class TokenSettings(object):
         """
         Return the allowed lifespan of a token as a TimeDelta object.
 
-        Defaults to 30 days.
+        Defaults to 90 minutes.
         """
         try:
             val = settings.EXPIRING_TOKEN_LIFESPAN
         except AttributeError:
-            val = timedelta(days=30)
+            val = timedelta(minutes=90)
 
         return val
 

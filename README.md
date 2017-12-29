@@ -54,14 +54,14 @@ INSTALLED_APPS = [
 Specify the desired lifespan of a token with `EXPIRING_TOKEN_LIFESPAN` in
 `settings.py` using a [timedelta
 object](https://docs.python.org/2/library/datetime.html#timedelta-objects).  If
-not set, the default is 30 days.
+not set, the default is 90 minutes.
 
 By default, tokens will be reset every time a new login occurs. By setting
 `ALWAYS_RESET_TOKEN` to `False`, this behavior can be deactivated.
 
 ```python
 import datetime
-EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(days=25)
+EXPIRING_TOKEN_LIFESPAN = datetime.timedelta(hours=2)
 ALWAYS_RESET_TOKEN = False
 ```
 
@@ -111,6 +111,7 @@ The `obtain_expiring_auth_token` view works exactly the same as the `obtain_auth
       [tpb-dev](https://github.com/tpb-dev)
   * Allow custom token models - Thanks
       [BrunoVillanova](https://github.com/BrunoVillanova)
+  * Shorten default token lifespan to 90 minutes.
  * 0.1.4
   * Fixed a typo causing an incorrect 500 error response with an invalid token.
   * Support Django 1.10 and Django Rest Framework 3.4
