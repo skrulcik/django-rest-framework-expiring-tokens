@@ -10,7 +10,7 @@ import drf_expiring_tokens
 version = drf_expiring_tokens.__version__
 
 if sys.argv[-1] == 'publish':
-    if os.system("pip list | grep wheel"):
+    if os.system("pip list --format=legacy | grep wheel"):
         print("wheel not installed.\nUse `pip install wheel`.\nExiting.")
         sys.exit()
     if os.system("pip freeze | grep twine"):
