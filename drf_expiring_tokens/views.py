@@ -17,27 +17,23 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
     """View enabling username/password exchange for expiring token."""
 
     model = ExpiringToken
+    serializer_class = AuthTokenSerializer
 
     def post(self, request):
         """Respond to POSTed username/password with token."""
-        serializer = AuthTokenSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
 
-        if serializer.is_valid():
-            token, _ = self.model.objects.get_or_create(
-                user=serializer.validated_data['user']
-            )
+        token, _ = self.model.objects.get_or_create(user=user)
 
-            if token.expired() or token_settings.ALWAYS_RESET_TOKEN:
-                # If the token is expired, generate a new one.
-                token.delete()
-                token = self.model.objects.create(
-                    user=serializer.validated_data['user']
-                )
+        if token.expired() or token_settings.ALWAYS_RESET_TOKEN:
+            # If the token is expired, generate a new one.
+            token.delete()
+            token = self.model.objects.create(user=user)
 
-            data = {'token': token.key}
-            return Response(data)
-
-        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        return Response({'token': token.key})
 
 
 obtain_expiring_auth_token = ObtainExpiringAuthToken.as_view()
