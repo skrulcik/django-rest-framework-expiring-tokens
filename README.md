@@ -105,6 +105,9 @@ The `obtain_expiring_auth_token` view works exactly the same as the `obtain_auth
 
 ## Changelog
 
+ * 0.2.1
+  * Emulate OntainAuthToken behavior more accurately by throwing a validation
+      exception, instead of a hard-coded response.
  * 0.2.0
   * **Fork** from the unmaintained django-rest-framework-expiring-tokens
   * Automatically reset tokens (and make it the default) - Thanks
