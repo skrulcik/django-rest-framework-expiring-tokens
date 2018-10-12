@@ -1,3 +1,11 @@
+# Archived / Deprecated
+
+This repository is no longer being updated or supported. Please consider using the community-supported [GetBlimp/django-rest-framework-jwt](https://github.com/GetBlimp/django-rest-framework-jwt) instead.
+
+_Why archive?_ This fork was created for a small use application that no longer uses it. There doesn't seem to be any community interest in it (the JWT option seems strictly better), so I'd rather archive this and label it as unsupported than feel responsible for keeping it up to date and its dependencies secure.
+
+---
+
 # Expiring Tokens for Django Rest Framework
 
 [![Build Status](https://travis-ci.org/skrulcik/drf-expiring-tokens.svg?branch=master)](https://travis-ci.org/skrulcik/drf-expiring-tokens)
